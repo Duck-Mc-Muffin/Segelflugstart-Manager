@@ -1,0 +1,35 @@
+
+tr:last-child td
+{
+    border: none;
+}
+
+.manual_entry td
+{
+    font-style: italic;
+}
+
+.role_1:not(.table-primary) td /* Winde */
+{
+    background-color: lightgray;
+}
+.role_2:not(.table-primary) td /* Startleiter */
+{
+    background-color: lightgray;
+}
+.role_3:not(.table-primary) td /* Fluglehrer */
+{
+    background-color: lightgray;
+}
+.role_4:not(.table-primary) td /* Gast */
+{
+    background-color: lightgray;
+}
+
+@media (max-width: 576px)
+{
+    body
+    {
+        font-size: 13px;
+    }
+}

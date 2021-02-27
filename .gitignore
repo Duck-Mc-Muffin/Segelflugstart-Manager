@@ -1,0 +1,7 @@
+/.vscode
+/vendor
+/impressum_und_datenschutz.php
+/css/*.min.css
+/css/*.min.css.map
+/js/*.min.js
+/js/*.min.js.map
