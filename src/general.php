@@ -144,6 +144,11 @@ function LoginToken($column_name, $token, $token_ttl)
 
     if ($row = $query->fetch(PDO::FETCH_ASSOC))
     {
+        if (empty($row["is_approved"]))
+        {
+            header('location: /login.php?acc_not_approved=true');
+            exit;
+        }
         SetSessionUser(new User($row));
         return true;
     }

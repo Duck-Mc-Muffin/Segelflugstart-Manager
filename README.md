@@ -7,7 +7,7 @@ Nutzer können sich für kommende Flugtage eintragen, was sie fliegen, welche "R
 "Appfremde" Piloten können von anderen Nutzern manuell in die Liste eingetragen werden. Damit können die Listen vervollständigt werden, auch wen nicht jeder die Anwendung nutzt.
 
 ## Konfiguration
-Die Konfigurationsdatei in der Datenbankverbindung, E-Mail, Google-ClientID etc. eingetragen werden können muss unter `/src/conf.php` zu finden sein. Um lokales entwickeln zu vereinfachen ist diese Konfigurationsdatei in `.gitignore` eingetragen. Die Vorlagedatei `/src/template_conf.php` kann hierzu kopiert und umbenannt werden, um lokale Datenbanken und Testumgebungen einzutragen.
+Die Konfigurationsdatei in der Datenbankverbindung, E-Mail, Google-ClientID etc. eingetragen werden können, muss unter `/src/conf.php` zu finden sein. Um lokales entwickeln zu vereinfachen ist diese Konfigurationsdatei in `.gitignore` eingetragen. Die Vorlagedatei `/src/template_conf.php` kann hierzu kopiert und umbenannt werden, um lokale Datenbanken und Testumgebungen einzutragen.
 
 Die Zone, in der sich Nutzer als "anwesend" eintragen können wird hier konfiguriert:
 ````
@@ -44,7 +44,7 @@ composer install
 ````
 installiert werden.
 
-Das "google/apiclient" Paket besteht aus vielen Google-Services die nicht verwendet werden. Der (sehr große) Ordner `/vendor/google/apiclient-services` kann also nach der Installation gelöscht werden.
+Das "google/apiclient" Paket besteht aus vielen Google-Services die nicht verwendet werden. Der (sehr große) Ordner `/vendor/google/apiclient-services` kann nach der Installation also gelöscht werden.
 
 ### Datenbank
 Mit `/scripts/create_tables.sql` werden die Datenbanktabellen angelegt. Die Auswahl der Luftfahrzeuge muss dann mit einem Datenbankclient in der Tabelle `plane` eingetragen werden. Ein Beispiel:
