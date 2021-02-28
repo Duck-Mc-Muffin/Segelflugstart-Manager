@@ -121,7 +121,7 @@ if (!empty($_POST["password_email"]))
 				</div>
 				<div class="form-group col-12">
 					<label class="form-check-label">
-						<input type="checkbox" name="remember_me" class="form-check-input">
+						<input type="checkbox" name="set_remember_me" class="form-check-input">
 						Angemeldet bleiben
 					</label>
 				</div>
@@ -144,7 +144,7 @@ if (!empty($_POST["password_email"]))
 					</div>
 					<div class="col-12">
 						<label class="form-check-label">
-							<input type="checkbox" name="remember_me" class="form-check-input">
+							<input type="checkbox" name="set_remember_me" class="form-check-input">
 							Angemeldet bleiben
 						</label>
 					</div>

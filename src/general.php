@@ -10,7 +10,7 @@ session_start();
 if (isset($_REQUEST["logout"]))
 {
     session_destroy();
-    if (!empty($_COOKIE['remember_me'])) setcookie('remember_me', '', time() - 1000);
+    if (!empty($_COOKIE['remember_me'])) setcookie('remember_me', '', time() - 1000, '/', $_SERVER["SERVER_NAME"], true, true);
     header("location: /index.php");
 	exit;
 }
@@ -169,8 +169,8 @@ function SetRememberMeCookie($user_id)
 }
 function CheckLogin($auto_login = true)
 {
-    $set_remember_me_cookie = !empty($_REQUEST["remember_me"]);
-    if (empty($_REQUEST["logout"]) && empty($_SESSION["user_id"]) && $auto_login)
+    $set_remember_me_cookie = !empty($_REQUEST["set_remember_me"]);
+    if (!isset($_REQUEST["logout"]) && empty($_SESSION["user_id"]) && $auto_login)
     {
         if (!empty($_POST["google_user_id_token"])) // Google Login
         {

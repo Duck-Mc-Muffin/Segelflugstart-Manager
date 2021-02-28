@@ -111,7 +111,7 @@ function insert()
         $new_user = User::GetByID($db->lastInsertId());
         if (empty($new_user)) throw new AppException("Automatischer Login nach dem Eintragen der Nutzerdaten ist fehlgeschlagen.");
         SetSessionUser($new_user);
-        if (!empty($_REQUEST["remember_me"])) SetRememberMeCookie($new_user->id);
+        if (!empty($_REQUEST["set_remember_me"])) SetRememberMeCookie($new_user->id);
         header('location: /index.php');
         exit;
     }

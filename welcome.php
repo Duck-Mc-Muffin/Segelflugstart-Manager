@@ -102,7 +102,7 @@ if (CheckLogin())
 				</div>
 				<div class="form-group col-12">
 					<label class="form-check-label">
-						<input type="checkbox" name="remember_me" class="form-check-input">
+						<input type="checkbox" name="set_remember_me" class="form-check-input">
 						Angemeldet bleiben
 					</label>
 				</div>
@@ -135,7 +135,7 @@ if (CheckLogin())
 					</div>
 					<div class="form-group col-12">
 						<label class="form-check-label">
-							<input type="checkbox" name="remember_me" class="form-check-input">
+							<input type="checkbox" name="set_remember_me" class="form-check-input">
 							Angemeldet bleiben
 						</label>
 					</div>

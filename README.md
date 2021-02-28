@@ -6,8 +6,6 @@ Nutzer können sich für kommende Flugtage eintragen, was sie fliegen, welche "R
 
 "Appfremde" Piloten können von anderen Nutzern manuell in die Liste eingetragen werden. Damit können die Listen vervollständigt werden, auch wen nicht jeder die Anwendung nutzt.
 
-#
-
 ## Konfiguration
 Die Konfigurationsdatei in der Datenbankverbindung, E-Mail, Google-ClientID etc. eingetragen werden können muss unter `/src/conf.php` zu finden sein. Um lokales entwickeln zu vereinfachen ist diese Konfigurationsdatei in `.gitignore` eingetragen. Die Vorlagedatei `/src/template_conf.php` kann hierzu kopiert und umbenannt werden, um lokale Datenbanken und Testumgebungen einzutragen.
 
@@ -30,15 +28,12 @@ const ATTENDANCE_ROLES =
     ...
 ]
 ````
-#
 
 ## Anforderungen
 Die Anwendung wurde gestestet mit:
 * Apache v2.4.41
 * PHP v7.3
 * MYSQL v5.6
-
-#
 
 ## Installation
 
@@ -69,16 +64,12 @@ Die Dateien `/css/main.css` und `/js/main.js` müssen "minified" sein damit sie 
 ### Moderatoren einrichten
 Wenn `APPROVE_ACCOUNTS_BY_DEFAULT = false` konfiguriert ist, müssen neu registrierte Nutzer erst für die Anwendung freigeschaltet werden. In der `user`-Tabelle können Nutzer mit `is_approved = 1` freigeschaltet werden. Nutzer können auch als `is_moderator` geflagt werden. Moderatoren können unter "Nutzer bestätigen" dann neue Nutzer innerhalb der Anwendung freischalten.
 
-#
-
 ## Anmerkungen
 * Ob Nutzer "nah genug" am Flugpltz sind um sich als anwesend einzutragen kann aus technischen Gründen nur client-seitig geprüft werden. Es ist also damit zu rechenen, dass die Einschränkung leicht umgangen werden kann.
 
 * Die Seite ist keine Vorlage, sondern wird für einen konkreten Verein entwickelt. Für andere Flugplätze müssen entsprechend viele Texte an diversen Stellen angepasst werden.
 
 * Die Impressums- & Datenschutzseite wird als `/impressum_und_datenschutz.php` referenziert und muss noch hinzugefügt werden.
-
-#
 
 ## Lizenz
 [MIT-Lizenz](https://github.com/Duck-Mc-Muffin/Segelflugstart-Manager/blob/main/LICENSE)
