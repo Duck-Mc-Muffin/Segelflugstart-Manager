@@ -108,36 +108,6 @@ function setPositionStatus(status)
 }
 $('.btn_get_position').on('click', getPosition);
 
-// Clipboard
-function HtmlToClipboard(element)
-{
-    var temp = $("<input>");
-    $("body").append(temp);
-    temp.val($(element).html()).select();
-    document.execCommand("copy");
-    temp.remove();
-}
-function HrefToClipboard(element)
-{
-    var temp = $("<input>");
-    $("body").append(temp);
-    temp.val($(element).attr("href")).select();
-    document.execCommand("copy");
-    temp.remove();
-}
-$('.html_to_clipboard').on('click', function(e)
-{
-    HtmlToClipboard(this);
-    alert("kopiert!");
-});
-$('.href_to_clipboard').on('click', function(e)
-{
-    e.preventDefault();
-    e.stopPropagation();
-    HrefToClipboard(this);
-    alert("kopiert!");
-});
-
 // Set plane selection in attendance form
 $('#attend_form').on('submit', function(e)
 {

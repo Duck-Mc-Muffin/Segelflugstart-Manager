@@ -35,8 +35,7 @@ CREATE TABLE IF NOT EXISTS `mail_log` (
   `error` varchar(50) DEFAULT NULL,
   `inserted_at` timestamp NOT NULL DEFAULT now(),
   PRIMARY KEY (`id`),
-  KEY `FK_mail_log__user_id` (`user_id`),
-  CONSTRAINT `FK_mail_log__user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+  KEY `FK_mail_log__user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `plane` (

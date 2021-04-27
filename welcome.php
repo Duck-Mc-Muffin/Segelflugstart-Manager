@@ -26,18 +26,12 @@ if (CheckLogin())
 			</p>
 			<p>
 				Eine Papierliste vielleicht? Pff ... ok Boomer.
-				Hier kann sich jetzt jeder selbst in eine <strong>viel coolere</strong> digitale Liste eintragen.
+				Wie es sich für's 21. Jahrhundert gehört, kann sich hier jetzt jeder selbst in eine digitale Liste eintragen.
 			</p>
 			<p>
 				Bist du am Wochenende dabei? Lass es die anderen wissen und trag dich (und was du fliegen willst) schonmal vorher ein.
 				Wenn du dann in der Nähe vom Platz bist, kannst du dich mit einem Klick als anwesend eintragen.
 			</p>
-			<div class="col-12">
-				<div class="alert alert-info" role="alert">
-					Die Datenschutzerklärung findest du <a href="/impressum_und_datenschutz.php">hier</a>.
-					Mit einer Registrierung akzeptierst du diese Datenschutzerklärung.
-				</div>
-			</div>
 			<?
 				if (empty(APPROVE_ACCOUNTS_BY_DEFAULT))
 				{
@@ -101,6 +95,10 @@ if (CheckLogin())
 					<small class="form-text text-muted">Diese E-Mail-Adresse wird nur zum zurücksetzen des Passwortes genutzt (optional)</small>
 				</div>
 				<div class="form-group col-12">
+					<input type="checkbox" class="form-check-input" required="required">
+					Ich akzeptiere die <a href="/impressum_und_datenschutz.php">Datenschutzbestimmungen</a>
+				</div>
+				<div class="form-group col-12">
 					<label class="form-check-label">
 						<input type="checkbox" name="set_remember_me" class="form-check-input">
 						Angemeldet bleiben
@@ -132,6 +130,10 @@ if (CheckLogin())
 					<div class="form-group col-12">
 						<label>Name</label>
 						<input type="text" class="form-control" name="name" placeholder="Am besten Vor- und Nachname" required="required">
+					</div>
+					<div class="form-group col-12">
+						<input type="checkbox" class="form-check-input" required="required">
+						Ich akzeptiere die <a href="/impressum_und_datenschutz.php">Datenschutzbestimmungen</a>
 					</div>
 					<div class="form-group col-12">
 						<label class="form-check-label">
