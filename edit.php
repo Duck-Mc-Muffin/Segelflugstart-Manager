@@ -3,7 +3,7 @@
 // Login status
 if (!CheckLogin())
 {
-	header("location: /welcome.php");
+	header("location: " . INDEX_LANDING_PAGE);
 	exit;
 }
 

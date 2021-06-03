@@ -2,7 +2,7 @@
 ## Was macht es?
 Der Segelflugstart-Manager ist eine "Stechuhr"/KalenderApp um Flugtage am Platz zu organisieren.
 
-Nutzer können sich für kommende Flugtage eintragen, was sie fliegen, welche "Rolle" sie einnehmen, um wieviel Uhr man etwa mit ihnen rechnen kann und ob sie letztes Mal mit Fliegen zu kurz gekommen sind. Am Flugtag dann kann man sich als anwesend eintragen, vorausgesetzt man ist nah genug am Flugplatz.
+Nutzer können sich für kommende Flugtage eintragen, was sie fliegen, welche "Rolle" sie einnehmen, um wieviel Uhr man etwa mit ihnen rechnen kann und ob sie letztes Mal mit Fliegen zu kurz gekommen sind. Am Flugtag kann man sich dann als anwesend eintragen, vorausgesetzt man ist nah genug am Flugplatz.
 
 "Appfremde" Piloten können von anderen Nutzern manuell in die Liste eingetragen werden. Damit können die Listen vervollständigt werden, auch wen nicht jeder die Anwendung nutzt.
 
@@ -53,6 +53,8 @@ INSERT INTO plane (model, lfz, wkz, alias, available)
 VALUES ('LAK17a', 'D-5957', 'XY', 'LAK', 1),
 ````
 (Luftfahrzeuge, die gewartet werden oder aus anderen Gründen nicht verfügbar sind, können mit `available = 0` in der Auswahl ausgeblendet werden)
+
+Das Skript sollte **nicht** mit auf den Produktivserver hochgeladen werden!
 
 ### Konfigurationsdatei
 Wie oben beschrieben muss die Konfigurationsdatei unter `/src/conf.php` abgelgt sein.

@@ -8,6 +8,7 @@ const DB_PASS = 'database_password';
 
 // General
 setlocale(LC_TIME, 'de_DE', 'german');
+const INDEX_LANDING_PAGE = '/login.php';
 const FORCE_HTTPS = true;
 const RESTRICT_MANUAL_ENTRY_ZONE = true; // Mode "false" not tested!
 const RESTRICT_MANUAL_ENTRY_PLANNED = true; // Mode "false" not tested!
