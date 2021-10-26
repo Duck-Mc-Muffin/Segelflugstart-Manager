@@ -3,7 +3,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception as PHPMailer_Exception;
 
 // Config file
-require_once $_SERVER["DOCUMENT_ROOT"] . '/src/conf.php';
+require_once 'conf.php';
 
 // Session
 session_start();
@@ -36,11 +36,10 @@ class AppException extends Exception
 }
 
 // Autoloader
-require_once $_SERVER["DOCUMENT_ROOT"] . "/vendor/autoload.php";
+require_once __DIR__ . "/../vendor/autoload.php";
 spl_autoload_register(function($class_name)
 {
-    // TODO: use namespaces
-    include $_SERVER["DOCUMENT_ROOT"] . "/src/Entities/" . $class_name . '.php';
+    include 'Entities/' . $class_name . '.php';
 });
 
 // Database connection
@@ -129,8 +128,15 @@ function ValidateGoogleUserIDToken($token)
         header('location: /login.php');
         exit;
     }
-    return false;
 }
+
+/**
+ * @param $column_name
+ * @param $token
+ * @param $token_ttl
+ * @return bool|void
+ * @throws Exception
+ */
 function LoginToken($column_name, $token, $token_ttl)
 {
     $time = new DateTime();
@@ -154,7 +160,14 @@ function LoginToken($column_name, $token, $token_ttl)
     }
     return false;
 }
-function GenerateUserToken($column_name, $user_id)
+
+/**
+ * @param $column_name
+ * @param $user_id
+ * @return string
+ * @throws Exception
+ */
+function GenerateUserToken($column_name, $user_id): string
 {
     global $db;
     $token = bin2hex(random_bytes(32));
@@ -165,6 +178,11 @@ function GenerateUserToken($column_name, $user_id)
     $query->execute();
     return $token;
 }
+
+/**
+ * @param $user_id
+ * @throws Exception
+ */
 function SetRememberMeCookie($user_id)
 {
     $token = GenerateUserToken('remember_me_token', $user_id);
@@ -172,7 +190,13 @@ function SetRememberMeCookie($user_id)
     $expire->add(new DateInterval(REMEMBER_ME_TOKEN_TTL));
     setcookie('remember_me', $token, $expire->getTimestamp(), '/', $_SERVER["SERVER_NAME"], true, true);
 }
-function CheckLogin($auto_login = true)
+
+/**
+ * @param bool $auto_login
+ * @return bool|void
+ * @throws Exception
+ */
+function CheckLogin(bool $auto_login = true)
 {
     $set_remember_me_cookie = !empty($_REQUEST["set_remember_me"]);
     if (!isset($_REQUEST["logout"]) && empty($_SESSION["user_id"]) && $auto_login)
@@ -224,25 +248,27 @@ function RenderFlightDayBtn($str, $flight_day = null)
         </a>
     </div><?
 }
-function RenderAttendanceAll($list)
-{
-    include $_SERVER["DOCUMENT_ROOT"] . '/src/templates/attendance_all.php';
-}
-function RenderAttendanceByPlane($list, $plane)
-{
-    include $_SERVER["DOCUMENT_ROOT"] . '/src/templates/attendance_by_plane.php';
-}
 function RenderAttendanceForm($planes, $flight_day, $att = null, $plane_selection = [], $is_manual = false)
 {
-    include $_SERVER["DOCUMENT_ROOT"] . '/src/templates/attendance_form.php';
+    include 'templates/attendance_form.php';
 }
 function RenderAttendanceTable($caption, $list, $plane_selection = [])
 {
-    include $_SERVER["DOCUMENT_ROOT"] . '/src/templates/attendance_table.php';
+    include 'templates/attendance_table.php';
 }
 
-// Send E-Mail
-function SendMail($user_id, $to_mail, $to_name, $subject, $template_file, $data, $debug_level = 0)
+/**
+ * Send E-Mail
+ * @param $user_id
+ * @param $to_mail
+ * @param $to_name
+ * @param $subject
+ * @param $template_file
+ * @param $data
+ * @param int $debug_level
+ * @return bool
+ */
+function SendMail($user_id, $to_mail, $to_name, $subject, $template_file, $data, $debug_level = 0): ?bool
 {
     $err = null;
     try
@@ -267,7 +293,7 @@ function SendMail($user_id, $to_mail, $to_name, $subject, $template_file, $data,
         $mail->isHTML(true);
 
         ob_start();
-        require $_SERVER["DOCUMENT_ROOT"] . '/src/templates/' . $template_file;
+        require 'templates/' . $template_file;
         $msg_html = ob_get_clean();
         $mail->msgHTML($msg_html, $_SERVER["DOCUMENT_ROOT"]);
 
@@ -294,4 +320,20 @@ function SendMail($user_id, $to_mail, $to_name, $subject, $template_file, $data,
     $query->execute();
 
     return empty($err);
+}
+
+// Debugging
+function printr($obj, $die = false)
+{
+    echo "<pre>";
+    print_r($obj);
+    echo "</pre>";
+    if ($die) exit;
+}
+function vardump($obj, $die = false)
+{
+    echo "<pre>";
+    var_dump($obj);
+    echo "</pre>";
+    if ($die) exit;
 }

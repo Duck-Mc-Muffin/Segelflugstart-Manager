@@ -1,11 +1,10 @@
-<?
-namespace AttendanceController;
-use \AppException;
-use \Attendance;
-use \DateTime;
-use \PDO;
+<? namespace AttendanceController;
+use AppException;
+use Attendance;
+use DateTime;
 
-require_once $_SERVER["DOCUMENT_ROOT"] . '/src/general.php';
+require_once __DIR__ . '/../general.php';
+printr($_REQUEST, 1);
 
 // Login status
 if (!CheckLogin())
@@ -33,6 +32,9 @@ if (empty($_SESSION['last_flight_day_visited'])) header('location: /index.php');
 else header('location: /index.php?flight_day=' . $_SESSION['last_flight_day_visited']);
 exit;
 
+/**
+ * @throws AppException
+ */
 function insert()
 {
     // Validate user privileges
@@ -53,14 +55,18 @@ function insert()
     // Validate "is planned" status
     $is_planned = !empty($_REQUEST["is_planned"]);
     $is_manual = !empty($_REQUEST["manual_entry"]);
-    if (!$is_planned && !$is_manual) ValidatePosition();
+    if (!$is_planned && !$is_manual)
+    {
+        if (empty($_REQUEST["pos_longitude"]) || empty($_REQUEST["pos_latitude"])) throw new AppException("Die Positionsdaten sind unvollständig!");
+        ValidatePosition($_REQUEST["pos_longitude"], $_REQUEST["pos_latitude"]);
+    }
     if ($today < $req_flight_day && !$is_planned)
     {
         throw new AppException("Der Flugtag für den du dich als <b>anwesend</b> eintragen willst hat noch nicht begonnen (" . $req_flight_day->format('d.m.') . ").");
     }
 
     // Validate manual entry
-    require_once $_SERVER["DOCUMENT_ROOT"] . '/src/data.php';
+    require_once __DIR__ . '/../data.php';
     $att = GetAttendanceByUser($_SESSION["user_id"], $req_flight_day);
     if ($is_manual && RESTRICT_MANUAL_ENTRY_ZONE && empty($att)) throw new AppException("Nur Nutzer die selber am Platz sind können manuelle Einträge erstellen.");
     if ($is_manual && RESTRICT_MANUAL_ENTRY_PLANNED && ($is_planned || $today > $req_flight_day)) throw new AppException('Personen können nicht als "plant zu kommen" manuell eingetragen werden.');
@@ -92,6 +98,9 @@ function insert()
     if (!empty($_REQUEST["plane_selection"])) InsertPlaneSelection($new_attendance_id, explode(',', $_REQUEST["plane_selection"]));
 }
 
+/**
+ * @throws AppException
+ */
 function update()
 {
     // Validate
@@ -117,11 +126,15 @@ function update()
     if (empty($att->manual_entry) !== empty($att_new->manual_entry)) throw new AppException('Der Status "manueller Eintrag" kann nicht nachträglich geändert werden.');
     
     // Validate position (is_planned status)
-    if (empty($att_new->manual_entry) && $att->is_planned && !$att_new->is_planned) ValidatePosition();
+    if (empty($att_new->manual_entry) && $att->is_planned && !$att_new->is_planned)
+    {
+        if (empty($_REQUEST["pos_longitude"]) || empty($_REQUEST["pos_latitude"])) throw new AppException("Die Positionsdaten sind unvollständig!");
+        ValidatePosition($_REQUEST["pos_longitude"], $_REQUEST["pos_latitude"]);
+    }
 
     // Validate flight day
     if ($att_new->flight_day < $today) throw new AppException("Das Datum kann nicht auf vergangene Tage gesetzt werden.");
-    else if ($att_new->flight_day > $today && empty($att_new->is_planned)) throw new AppException('Zukünftige Flugtage können nur als "geplant" eingetragen werden.');
+    if ($att_new->flight_day > $today && empty($att_new->is_planned)) throw new AppException('Zukünftige Flugtage können nur als "geplant" eingetragen werden.');
 
     // Set Time
     if (!$att_new->is_planned && empty($att_new->manual_entry))
@@ -168,6 +181,9 @@ function update()
     }
 }
 
+/**
+ * @throws AppException
+ */
 function delete()
 {
     // Validate request
@@ -206,20 +222,19 @@ function InsertPlaneSelection($att_id, $selection)
     $query->execute();
 }
 
-function ValidatePosition($att = null)
+/**
+ * @param $pos_longitude
+ * @param $pos_latitude
+ * @throws AppException
+ */
+function ValidatePosition($pos_longitude, $pos_latitude)
 {
-    if (empty($_REQUEST["pos_longitude"]) || empty($_REQUEST["pos_latitude"])) throw new AppException("Die Positionsdaten sind unvollständig!");
-
-    $lat1 = $_REQUEST["pos_latitude"];
-    $lon1 = $_REQUEST["pos_longitude"];
-    $lat2 = ENLIST_ZONE_LATITUDE;
-    $lon2 = ENLIST_ZONE_LONGITUDE;
     $dist = 0;
-    if (!(($lat1 == $lat2) && ($lon1 == $lon2)))
+    if (!(($pos_latitude == ENLIST_ZONE_LATITUDE) && ($pos_longitude == ENLIST_ZONE_LONGITUDE)))
     {
-        $radlat1 = pi() * $lat1 / 180;
-        $radlat2 = pi() * $lat2 / 180;
-        $theta = $lon1 - $lon2;
+        $radlat1 = pi() * $pos_latitude / 180;
+        $radlat2 = pi() * ENLIST_ZONE_LATITUDE / 180;
+        $theta = $pos_longitude - ENLIST_ZONE_LONGITUDE;
         $radtheta = pi() * $theta / 180;
         $dist = sin($radlat1) * sin($radlat2) + cos($radlat1) * cos($radlat2) * cos($radtheta);
         if ($dist > 1) $dist = 1;

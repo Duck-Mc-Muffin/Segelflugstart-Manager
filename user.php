@@ -1,4 +1,4 @@
-<? require_once $_SERVER["DOCUMENT_ROOT"] . '/src/general.php';
+<? require_once __DIR__ . '/src/general.php';
 
 // Login status
 if (!CheckLogin())
@@ -19,7 +19,7 @@ $_SESSION["user_data_form_csrf"] = bin2hex(random_bytes(32));
 <html lang="de" class="h-100">
 <head>
 	<title>Account</title>
-	<? require_once $_SERVER["DOCUMENT_ROOT"] . '/src/templates/head.php'; ?>
+	<? require __DIR__ . '/src/templates/head.php'; ?>
 </head>
 <body class="d-flex flex-column h-100">
 	<header class="container-sm my-3 text-center mb-5">
@@ -74,17 +74,17 @@ $_SESSION["user_data_form_csrf"] = bin2hex(random_bytes(32));
 				<input type="hidden" name="csrf" value="<?= $_SESSION["user_data_form_csrf"] ?>">
 				<input type="hidden" name="id" value="<?= $user->id ?>">
 				<div class="form-group col-12">
-					<label>Name</label>
-					<input type="text" name="name" class="form-control" value="<?= $user->name ?>" required="required">
+					<label for="name_field">Name</label>
+					<input id="name_field" type="text" name="name" class="form-control" value="<?= $user->name ?>" required="required">
 				</div>
 				<div class="form-group col-12">
-					<label>Neues Passwort</label>
-					<input type="password" class="form-control" name="password">
+					<label for="password_field">Neues Passwort</label>
+					<input id="password_field" type="password" class="form-control" name="password">
 					<small class="form-text text-muted">Wenn du das Passwort nicht ändern willst, lass das Feld leer</small>
 				</div>
 				<div class="form-group col-12">
-					<label>Passwort vergessen E-Mail</label>
-					<input type="email" name="password_email" class="form-control" value="<?= $user->password_email ?>" placeholder="beispiel@gmail.de">
+					<label for="email_field">Passwort vergessen E-Mail</label>
+					<input id="email_field" type="email" name="password_email" class="form-control" value="<?= $user->password_email ?>" placeholder="beispiel@gmail.de">
 					<small class="form-text text-muted">Diese E-Mail-Adresse wird nur zum zurücksetzen des Passwortes genutzt (optional)</small>
 				</div>
 				<div class="form-group col-12">
@@ -117,7 +117,11 @@ $_SESSION["user_data_form_csrf"] = bin2hex(random_bytes(32));
 		{
 			?>
 			<article class="container-sm my-5" style="max-width: 500px">
-				<form id="unlink_google_form" action="/src/Controller/UserController.php" method="POST">
+				<form id="unlink_google_form"
+                        action="/src/Controller/UserController.php"
+                        method="POST"
+                        x-data="are_you_sure('Bist du sicher, dass du die Verknüpfung mit deinem Google-Account entfernen möchtest?')"
+                        @submit="prompt">
 					<input type="hidden" name="action" value="update">
 					<input type="hidden" name="csrf" value="<?= $_SESSION["user_data_form_csrf"] ?>">
 					<input type="hidden" name="id" value="<?= $user->id ?>">
@@ -136,4 +140,4 @@ $_SESSION["user_data_form_csrf"] = bin2hex(random_bytes(32));
 		RenderFlightDayBtn('zum heutigen Flugtag');
 		?>
 	</section>
-<? include $_SERVER["DOCUMENT_ROOT"] . '/src/templates/footer.php';
+<? include __DIR__ . '/src/templates/footer.php';

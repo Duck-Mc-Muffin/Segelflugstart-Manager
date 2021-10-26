@@ -4,7 +4,7 @@ Der Segelflugstart-Manager ist eine "Stechuhr"/KalenderApp um Flugtage am Platz 
 
 Nutzer können sich für kommende Flugtage eintragen, was sie fliegen, welche "Rolle" sie einnehmen, um wieviel Uhr man etwa mit ihnen rechnen kann und ob sie letztes Mal mit Fliegen zu kurz gekommen sind. Am Flugtag kann man sich dann als anwesend eintragen, vorausgesetzt man ist nah genug am Flugplatz.
 
-"Appfremde" Piloten können von anderen Nutzern manuell in die Liste eingetragen werden. Damit können die Listen vervollständigt werden, auch wen nicht jeder die Anwendung nutzt.
+"Appfremde" Piloten können von anderen Nutzern manuell in die Liste eingetragen werden. Damit können die Listen vervollständigt werden, auch wenn nicht jeder die Anwendung nutzt.
 
 ## Konfiguration
 Die Konfigurationsdatei in der Datenbankverbindung, E-Mail, Google-ClientID etc. eingetragen werden können, muss unter `/src/conf.php` zu finden sein. Um lokales entwickeln zu vereinfachen ist diese Konfigurationsdatei in `.gitignore` eingetragen. Die Vorlagedatei `/src/template_conf.php` kann hierzu kopiert und umbenannt werden, um lokale Datenbanken und Testumgebungen einzutragen.
@@ -60,14 +60,14 @@ Das Skript sollte **nicht** mit auf den Produktivserver hochgeladen werden!
 Wie oben beschrieben muss die Konfigurationsdatei unter `/src/conf.php` abgelgt sein.
 
 ### CSS/JS
-Die Dateien `/css/main.css` und `/js/main.js` müssen "minified" sein damit sie unter
+Die Dateien `/css/main.css` und `/js/main.js` müssen "minified" sein, damit sie unter
 `/css/main.min.css` und `/js/main.min.js` richtig eingebunden werden.
 
 ### Moderatoren einrichten
-Wenn `APPROVE_ACCOUNTS_BY_DEFAULT = false` konfiguriert ist, müssen neu registrierte Nutzer erst für die Anwendung freigeschaltet werden. In der `user`-Tabelle können Nutzer mit `is_approved = 1` freigeschaltet werden. Nutzer können auch als `is_moderator` geflagt werden. Moderatoren können unter "Nutzer bestätigen" dann neue Nutzer innerhalb der Anwendung freischalten.
+Wenn `APPROVE_ACCOUNTS_BY_DEFAULT = false` konfiguriert ist, müssen neu registrierte Nutzer erst für die Anwendung freigeschaltet werden. In der `user`-Tabelle können Nutzer mit `is_approved = 1` freigeschaltet werden. Nutzer können auch als `is_moderator` geflagt werden. Moderatoren können in der Fußleiste unter "Nutzer bestätigen" dann neue Nutzer innerhalb der Anwendung freischalten.
 
 ## Anmerkungen
-* Ob Nutzer "nah genug" am Flugpltz sind um sich als anwesend einzutragen kann aus technischen Gründen nur client-seitig geprüft werden. Es ist also damit zu rechenen, dass die Einschränkung leicht umgangen werden kann.
+* Ob Nutzer "nah genug" am Flugplatz sind um sich als anwesend einzutragen kann aus technischen Gründen nur client-seitig geprüft werden. Es ist also damit zu rechenen, dass die Einschränkung leicht umgangen werden kann.
 
 * Die Seite ist keine Vorlage, sondern wird für einen konkreten Verein entwickelt. Für andere Flugplätze müssen entsprechend viele Texte an diversen Stellen angepasst werden.
 

@@ -1,7 +1,7 @@
 <?
 // Database
 const DB_SYSTEM = 'mysql';
-const DB_HOST = 'database_host_adress';
+const DB_HOST = 'database_host_address';
 const DB_NAME = 'database_name';
 const DB_USER = 'database_user';
 const DB_PASS = 'database_password';
@@ -36,7 +36,7 @@ const EMAIL_FROM_NAME = 'Segelflugstart-Manager';
 const EMAIL_REPLY_MAIL = 'support@example.com';
 const EMAIL_REPLY_NAME = 'Support';
 
-// E-Mail cooldown
+// E-Mail cool down
 const EMAIL_LIMIT_TIME = 'PT3H'; // PHP DateInterval (https://www.php.net/manual/en/dateinterval.construct.php)
 const EMAIL_LIMIT_AMOUNT = 3;
 

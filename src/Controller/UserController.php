@@ -1,11 +1,9 @@
-<?
-namespace UserController;
-use \AppException;
-use \Google_Client;
-use \User;
-use \PDO;
+<? namespace UserController;
+use AppException;
+use User;
+use PDO;
 
-require_once $_SERVER["DOCUMENT_ROOT"] . '/src/general.php';
+require_once __DIR__ . '/../general.php';
 
 // Actions
 try
@@ -33,13 +31,16 @@ switch ($_REQUEST["action"])
 }
 exit;
 
+/**
+ * @throws AppException
+ */
 function insert()
 {
     // Validate
     $name = trim($_POST["name"]); 
     if (empty($name)) throw new AppException("Der Name darf nicht leer sein.");
     
-    // User name taken?
+    // Username taken?
     global $db;
     $query = $db->prepare('SELECT count(*) AS user_count FROM user WHERE name = :name');
     $query->bindParam(':name', $name);
@@ -113,15 +114,17 @@ function insert()
         SetSessionUser($new_user);
         if (!empty($_REQUEST["set_remember_me"])) SetRememberMeCookie($new_user->id);
         header('location: /index.php');
-        exit;
     }
     else
     {
         header('location: /login.php?approval_notice=true');
-        exit;
     }
+    exit;
 }
 
+/**
+ * @throws AppException
+ */
 function update()
 {
     // Login status
@@ -130,12 +133,12 @@ function update()
     // Get user from DB
     if (empty($_POST["id"])) throw new AppException("Es wurde keine UserID für die Anfrage mitgesendet.");
     $user = User::GetByID($_POST["id"]);
-    if (empty($user)) throw new AppException("Der Nutzer wurde nicht in der Datenbank gefunden (ID " + $_POST["id"] + ").");
+    if (empty($user)) throw new AppException("Der Nutzer wurde nicht in der Datenbank gefunden (ID " . $_POST["id"] . ").");
 
     // Validate user privileges
     if ($_SESSION["user_id"] !== $user->id)
     {
-        header($_SERVER["SERVER_PROTOCOL"]." 403 Forbidden");
+        header($_SERVER["SERVER_PROTOCOL"] . " 403 Forbidden");
         exit;
     }
 
@@ -153,7 +156,7 @@ function update()
     // Validate
     if (empty($new_user->name)) throw new AppException("Der Name darf nicht leer sein.");
     
-    // User name taken?
+    // Username taken?
     global $db;
     $query = $db->prepare('SELECT count(*) user_count FROM user WHERE name = :name AND id != :id');
     $query->bindParam(':name', $new_user->name);
@@ -248,13 +251,13 @@ function update()
         $query->bindValue(':password_email', empty($new_user->password_email) ? null : $new_user->password_email);
         $query->execute();
     }
-    
+
     // Update session data
     $new_user = User::GetByID($user->id);
     if (empty($new_user))
     {
         session_destroy();
-        throw new AppException("Aktuallisieren der Sessiondaten ist fehlgeschlagen.");
+        throw new AppException("Aktualisieren der Session ist fehlgeschlagen.");
     }
     SetSessionUser($new_user);
 
@@ -263,6 +266,9 @@ function update()
     exit;
 }
 
+/**
+ * @throws AppException
+ */
 function delete()
 {
     throw new AppException("Dieses Feature wurde noch nicht implementiert.");

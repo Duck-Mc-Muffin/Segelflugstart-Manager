@@ -1,4 +1,5 @@
-<? require_once $_SERVER["DOCUMENT_ROOT"] . '/src/general.php';
+<? require_once __DIR__ . '/src/general.php';
+global $db, $date_formatter_user_list;
 
 // Login status
 if (!CheckLogin())
@@ -30,7 +31,7 @@ if (!empty($_REQUEST["approve_user"]))
 }
 
 // Data
-require_once $_SERVER["DOCUMENT_ROOT"] . '/src/data.php';
+require_once __DIR__ . '/src/data.php';
 $unapproved_users = GetUnapprovedUserList();
 
 // Main page
@@ -39,7 +40,7 @@ $unapproved_users = GetUnapprovedUserList();
 <html lang="de" class="h-100">
 <head>
 	<title>Nutzerliste</title>
-	<? require_once $_SERVER["DOCUMENT_ROOT"] . '/src/templates/head.php'; ?>
+	<? require __DIR__ . '/src/templates/head.php'; ?>
 </head>
 <body class="d-flex flex-column h-100">
 	<header class="container-lg my-3 text-center">
@@ -62,7 +63,9 @@ $unapproved_users = GetUnapprovedUserList();
 					foreach($unapproved_users as $user)
 					{
 						?>
-						<a href="/user_list.php?approve_user=<?= $user->id ?>" class=" list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+						<a href="/user_list.php?approve_user=<?= $user->id ?>"
+                            class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+                            x-data="are_you_sure('Bist du sicher, dass du den Nutzer bestätigen willst?')" @click="prompt">
 							<?= $user->name ?>
 							<span>
 								<span class="badge bg-secondary rounded-pill">
@@ -82,4 +85,4 @@ $unapproved_users = GetUnapprovedUserList();
 	<div class="text-center py-3">
 		<a class="btn btn-outline-secondary btn-sm" href="/index.php"><i class="fas fa-arrow-left"></i> zurück</a>
 	</div>
-<? include $_SERVER["DOCUMENT_ROOT"] . '/src/templates/footer.php';
+<? include __DIR__ . '/src/templates/footer.php';

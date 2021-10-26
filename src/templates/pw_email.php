@@ -1,3 +1,4 @@
+<? global $to_name, $data; ?>
 <!DOCTYPE html>
 <html lang="de">
 <head>

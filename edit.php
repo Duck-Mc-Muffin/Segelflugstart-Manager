@@ -1,4 +1,5 @@
-<? require_once $_SERVER["DOCUMENT_ROOT"] . '/src/general.php';
+<? require_once __DIR__ . '/src/general.php';
+global $date_formatter_title;
 
 // Login status
 if (!CheckLogin())
@@ -17,7 +18,7 @@ if (!empty($_REQUEST["id"])) $att = Attendance::GetByID($_REQUEST["id"]);
 if (empty($att)) $att = new Attendance(["flight_day" => ($req_flight_day === false ? $today->format('Y-m-d') : $req_flight_day->format('Y-m-d'))]);
 
 // Data
-require_once $_SERVER["DOCUMENT_ROOT"] . '/src/data.php';
+require_once __DIR__ . '/src/data.php';
 $plane_selection = GetPlaneSelectionByAttendanceID($att->id);
 $planes = GetPlanes();
 
@@ -27,7 +28,7 @@ $planes = GetPlanes();
 <html lang="de" class="h-100">
 <head>
 	<title>Eintrag bearbeiten</title>
-	<? require_once $_SERVER["DOCUMENT_ROOT"] . '/src/templates/head.php'; ?>
+	<? require_once __DIR__ . '/src/templates/head.php'; ?>
 </head>
 <body class="d-flex flex-column h-100">
 	<header class="container my-3 text-center">
@@ -63,4 +64,4 @@ $planes = GetPlanes();
 			?>
         </article>
     </section>
-<? include $_SERVER["DOCUMENT_ROOT"] . '/src/templates/footer.php';
+<? include __DIR__ . '/src/templates/footer.php';

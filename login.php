@@ -1,4 +1,4 @@
-<? require_once $_SERVER["DOCUMENT_ROOT"] . '/src/general.php';
+<? require_once __DIR__ . '/src/general.php';
 
 // Login status
 if (CheckLogin())
@@ -12,6 +12,7 @@ $email_was_sent_notification = false;
 if (!empty($_POST["password_email"]))
 {
 	// Get User
+    global $db;
 	$query = $db->prepare("SELECT * FROM user
 						   WHERE password_email = :password_email
 							 AND password_email IS NOT NULL
@@ -48,7 +49,7 @@ if (!empty($_POST["password_email"]))
 <html lang="de" class="h-100">
 <head>
 	<title>Segelflugstart-Manager | Login</title>
-	<? require_once $_SERVER["DOCUMENT_ROOT"] . '/src/templates/head.php'; ?>
+	<? require_once __DIR__ . '/src/templates/head.php'; ?>
 </head>
 <body class="d-flex flex-column h-100">
 	<header class="container-sm my-3 text-center mb-5">
@@ -112,12 +113,12 @@ if (!empty($_POST["password_email"]))
 			?>
             <form id="login_form" class="row g-3" action="/index.php" method="POST">
 				<div class="form-group col-12">
-					<label>Name</label>
-					<input type="text" class="form-control" name="name" required="required">
+					<label for="name_field">Name</label>
+					<input id="name_field" type="text" class="form-control" name="name" required="required">
 				</div>
 				<div class="form-group col-12">
-					<label>Passwort</label>
-					<input type="password" class="form-control" name="pw" required="required">
+					<label for="password_field">Passwort</label>
+					<input id="name_field" type="password" class="form-control" name="pw" required="required">
 				</div>
 				<div class="form-group col-12">
 					<label class="form-check-label">
@@ -129,7 +130,7 @@ if (!empty($_POST["password_email"]))
 					<button type="submit" class="form-control btn btn-primary">Login</button>
 				</div>
 				<div class="form-group col-12 text-center">
-					<button type="button" class="btn btn-sm toggle_form">Passwort vergessen?</button>
+					<button type="button" class="btn btn-sm" x-data @click="toggleAllForms()">Passwort vergessen?</button>
 				</div>
             </form>
 			<?
@@ -157,15 +158,15 @@ if (!empty($_POST["password_email"]))
 			?>
             <form id="forgot_pw_form" class="row g-3 d-none" action="/login.php" method="POST">
 				<div class="form-group col-8">
-					<label>Hinterlegte E-Mail-Adresse</label>
-					<input type="email" class="form-control" placeholder="Deine E-Mail-Adresse" name="password_email" required="required">
+					<label for="email_field">Hinterlegte E-Mail-Adresse</label>
+					<input id="email_field" type="email" class="form-control" placeholder="Deine E-Mail-Adresse" name="password_email" required="required">
 				</div>
 				<div class="form-group col-4">
 					<label>&nbsp;</label>
 					<button type="submit" class="form-control btn btn-primary">Senden</button>
 				</div>
 				<div class="col-12 text-center">
-					<button type="button" class="btn btn-sm toggle_form">zurück</button>
+					<button type="button" class="btn btn-sm" x-data @click="toggleAllForms()">zurück</button>
 				</div>
 			</form>
 		</article>
@@ -174,4 +175,4 @@ if (!empty($_POST["password_email"]))
 			<a class="btn btn-outline-secondary" href="/welcome.php">Zum Registrieren hier!</a>
 		</article>
 	</section>
-<? include $_SERVER["DOCUMENT_ROOT"] . '/src/templates/footer.php';
+<? include __DIR__ . '/src/templates/footer.php';

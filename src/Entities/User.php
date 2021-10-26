@@ -17,7 +17,12 @@ class User extends Entity
         return $this->name;
     }
 
-    public static function SQL($alias, $prefix)
+    /**
+     * @param $alias
+     * @param $prefix
+     * @return string
+     */
+    public static function SQL($alias, $prefix): string
     {
         return $alias . ".id AS " . $prefix . "_id," .
                 $alias . ".name AS " . $prefix . "_name," .

@@ -1,5 +1,4 @@
-<?
-require_once $_SERVER["DOCUMENT_ROOT"] . '/src/general.php';
+<? require_once __DIR__ . '/src/general.php';
 
 // Login status
 if (CheckLogin())
@@ -12,7 +11,7 @@ if (CheckLogin())
 <html lang="de" class="h-100">
 <head>
 	<title>Willkommen | Segelflugstart-Manager</title>
-	<? require_once $_SERVER["DOCUMENT_ROOT"] . '/src/templates/head.php'; ?>
+	<? require_once __DIR__ . '/src/templates/head.php'; ?>
 </head>
 <body class="d-flex flex-column h-100">
 	<header class="container-md my-md-5 my-3 text-center">
@@ -82,21 +81,24 @@ if (CheckLogin())
             <form class="row g-3" action="/src/Controller/UserController.php" method="POST">
                 <input type="hidden" name="action" value="insert"/>
 				<div class="form-group col-sm-6 col-12">
-					<label>Name</label>
-					<input type="text" class="form-control" name="name" placeholder="Am besten Vor- und Nachname" required="required">
+					<label for="name_field">Name</label>
+					<input id="name_field" type="text" class="form-control" name="name" placeholder="Am besten Vor- und Nachname" required="required">
 				</div>
 				<div class="form-group col-sm-6 col-12">
-					<label>Passwort</label>
-					<input type="password" minlength="<? echo LOGIN_PW_MIN_LENGTH; ?>" placeholder="Bitte nicht 12345" class="form-control" name="pw" required="required">
+					<label for="password_field">Passwort</label>
+					<input id="password_field" type="password" minlength="<? echo LOGIN_PW_MIN_LENGTH; ?>" placeholder="Bitte nicht 12345" class="form-control" name="pw" required="required">
 				</div>
 				<div class="form-group col-12">
-					<label>Passwort vergessen E-Mail</label>
-					<input type="email" class="form-control" placeholder="beispiel@gmail.de" name="password_email">
+					<label for="email_field">Passwort vergessen E-Mail</label>
+					<input id="email_field" type="email" class="form-control" placeholder="beispiel@gmail.de" name="password_email">
 					<small class="form-text text-muted">Diese E-Mail-Adresse wird nur zum zurücksetzen des Passwortes genutzt (optional)</small>
 				</div>
 				<div class="form-group col-12">
-					<input type="checkbox" class="form-check-input" required="required">
-					Ich akzeptiere die <a href="/impressum_und_datenschutz.php">Datenschutzbestimmungen</a>
+                    <label>
+                        <input type="checkbox" class="form-check-input" required="required">
+                        Ich akzeptiere die
+                    </label>
+                    <a href="/impressum_und_datenschutz.php">Datenschutzbestimmungen</a>
 				</div>
 				<div class="form-group col-12">
 					<label class="form-check-label">
@@ -128,12 +130,15 @@ if (CheckLogin())
 					<input type="hidden" name="action" value="insert"/>
 					<input type="hidden" name="google_user_id_token">
 					<div class="form-group col-12">
-						<label>Name</label>
-						<input type="text" class="form-control" name="name" placeholder="Am besten Vor- und Nachname" required="required">
+						<label for="name_google_field">Name</label>
+						<input id="name_google_field" type="text" class="form-control" name="name" placeholder="Am besten Vor- und Nachname" required="required">
 					</div>
 					<div class="form-group col-12">
-						<input type="checkbox" class="form-check-input" required="required">
-						Ich akzeptiere die <a href="/impressum_und_datenschutz.php">Datenschutzbestimmungen</a>
+                        <label>
+                            <input type="checkbox" class="form-check-input" required="required">
+                            Ich akzeptiere die
+                        </label>
+                        <a href="/impressum_und_datenschutz.php">Datenschutzbestimmungen</a>
 					</div>
 					<div class="form-group col-12">
 						<label class="form-check-label">
@@ -157,4 +162,4 @@ if (CheckLogin())
 			<a class="btn btn-outline-secondary" href="/login.php">Zum Login hier!</a>
 		</article>
 	</section>
-<? include $_SERVER["DOCUMENT_ROOT"] . '/src/templates/footer.php';
+<? include __DIR__ . '/src/templates/footer.php';

@@ -9,7 +9,12 @@ class Plane extends Entity
     public $alias;
     public $available;
 
-    public static function SQL($alias, $prefix)
+    /**
+     * @param $alias
+     * @param $prefix
+     * @return string
+     */
+    public static function SQL($alias, $prefix): string
     {
         return $alias . ".id AS " . $prefix . "_id," .
                 $alias . ".model AS " . $prefix . "_model," .

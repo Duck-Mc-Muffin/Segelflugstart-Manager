@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `attendance` (
   `inserted_at` timestamp NOT NULL DEFAULT now(),
   PRIMARY KEY (`id`),
   KEY `FK_attendance__user_id` (`user_id`) USING BTREE,
-  CONSTRAINT `FK_attendence__user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+  CONSTRAINT `FK_attendance__user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `plane_selection` (

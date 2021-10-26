@@ -1,4 +1,5 @@
-<? require_once $_SERVER["DOCUMENT_ROOT"] . '/src/general.php';
+<? require_once __DIR__ . '/src/general.php';
+global $date_formatter_title;
 
 // Login status
 if (!CheckLogin())
@@ -31,7 +32,7 @@ if (!empty($_REQUEST["flight_day"]))
 $_SESSION['last_flight_day_visited'] = $flight_day->format('Y-m-d');
 
 // Data
-require_once $_SERVER["DOCUMENT_ROOT"] . '/src/data.php';
+require_once __DIR__ . '/src/data.php';
 $list_all = GetAttendanceListAll($flight_day);
 $list_all_planned = GetAttendanceListAll($flight_day, true);
 $list_by_plane = GetAttendanceListByPlane($flight_day);
@@ -46,7 +47,7 @@ $selected_planes = GetPlanesFromFlightDay($flight_day);
 <html lang="de" class="h-100">
 <head>
 	<title>Segelflugstart-Manager</title>
-	<? require_once $_SERVER["DOCUMENT_ROOT"] . '/src/templates/head.php'; ?>
+	<? require_once __DIR__ . '/src/templates/head.php'; ?>
 	<link type="text/css" rel="stylesheet" href="css/main.min.css"/>
 </head>
 <body class="d-flex flex-column h-100">
@@ -60,7 +61,7 @@ $selected_planes = GetPlanesFromFlightDay($flight_day);
 		else
 		{
 			?>
-			<article class="attandance_lists">
+			<article>
 				<ul class="nav nav-tabs nav-fill" role="tablist">
 					<li class="nav-item" role="presentation">
 						<button class="nav-link active d-block" style="width: 100%" id="plane_tab_all"
@@ -122,12 +123,12 @@ $selected_planes = GetPlanesFromFlightDay($flight_day);
 		{
 			?>
 			<article class="container-fluid mt-2 row g-3">
-				<div class="col position_error">
+				<div class="col position_error d-none">
 					<div class="alert alert-danger m-0" role="alert">
 						Dein Browser erlaubt nicht die Übertragung deiner Position oder die Positionsdaten sind nicht verfügbar.
 					</div>
 				</div>
-				<div class="col-md col-12 distance_valid">
+				<div class="col-md col-12 distance_valid d-none">
 					<div class="alert alert-success" role="alert">
 						Du bist nah genug an den Hallen. Jetzt kannst du dich in der Liste eintragen.
 					</div>
@@ -142,11 +143,11 @@ $selected_planes = GetPlanesFromFlightDay($flight_day);
 						</div>
 					</form>
 				</div>
-				<div class="col-md col-12 distance_invalid">
+				<div class="col-md col-12 distance_invalid d-none">
 					<div class="alert alert-warning" role="alert">
 						Du bist noch <strong class="distance">(unbekannt) m</strong> zu weit von den Hallen entfernt um dich als <b>anwesend</b> einzutragen.
 						<div class="text-center pt-2">
-							<button class="btn btn-secondary btn_get_position">aktuallisieren</button>
+							<button class="btn btn-secondary">aktualisieren</button>
 						</div>
 					</div>
 				</div>
@@ -159,7 +160,10 @@ $selected_planes = GetPlanesFromFlightDay($flight_day);
 			{
 				?>
 				<article class="container-fluid mt-4 text-center">
-					<a class="btn btn-sm btn-outline-secondary add_user_btn" href="/edit.php?manual=1&flight_day=<?= $flight_day->format('Y-m-d') ?>">
+					<a class="btn btn-sm btn-outline-secondary add_user_btn"
+                        href="/edit.php?manual=1&flight_day=<?= $flight_day->format('Y-m-d') ?>"
+                        x-data="manual_user_drag_and_drop"
+                        @click="linkAddManualUser()">
 						<i class="fas fa-user-edit"></i>
 						Andere Person manuell eintragen.
 					</a>
@@ -169,4 +173,4 @@ $selected_planes = GetPlanesFromFlightDay($flight_day);
 		}
 		?>
 	</section>
-<? include $_SERVER["DOCUMENT_ROOT"] . '/src/templates/footer.php';
+<? include __DIR__ . '/src/templates/footer.php';

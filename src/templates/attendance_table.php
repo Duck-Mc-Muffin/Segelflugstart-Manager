@@ -1,8 +1,9 @@
+<? global $caption; ?>
 <article class="container-fluid px-1 table-responsive">
-    <table class="table table-sm caption-top attendance_table">
-        <caption class="text-center"><?= $caption ?></caption>
+    <table class="table table-sm caption-top attendance_table" x-data="manual_user_drag_and_drop">
+        <caption class="text-center"><?=  $caption ?></caption>
         <thead class="border-bottom">
-            <tr>
+            <tr @dragover.prevent @drop="apply('00:00:00')">
                 <th scope="col">Zeit</th>
                 <th scope="col">Name</th>
                 <?= empty($plane_selection) ? '' : '<th scope="col">Flugzeuge</th>' ?>
@@ -28,7 +29,8 @@
                     <tr data-id="<?= $att->id ?>"
                         data-time="<?= empty($att->time) ? '' : $att->time->format('H:i:s') ?>"
                         class="<?= (empty($att->manual_entry) ? '' : 'manual_entry ') ?>role_<?= $att->role ?> <?= ($is_user && !$is_manual) ? 'table-primary' : '' ?>"
-                        <?= ($is_user && $is_manual) ? ' draggable="true"' : '' ?>>
+                        <?= ($is_user && $is_manual) ? ' draggable="true" @dragstart="setData()"' : '' ?>
+                        @dragover.prevent @drop="apply(calc($el.dataset.time))">
                         <td><?= empty($att->time) || !empty($att->manual_entry) ? '' : $att->time->format("H:i") ?></td>
                         <td><?= $att->GetNameAndSymbols(); ?></td>
                         <?

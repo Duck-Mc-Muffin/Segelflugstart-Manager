@@ -29,7 +29,12 @@ class Attendance extends Entity
         $this->time = $this->parseTime($this->time, $this->flight_day);
     }
 
-    public static function parseTime($str, $day = null)
+    /**
+     * @param $str
+     * @param null $day
+     * @return DateTime|null
+     */
+    public static function parseTime($str, $day = null): ?DateTime
     {
         $time = is_a($day, 'DateTime') ? clone $day : new DateTime();
         $time_arr = explode(':', $str);
@@ -41,7 +46,10 @@ class Attendance extends Entity
         }
     }
 
-    public function GetNameAndSymbols()
+    /**
+     * @return string
+     */
+    public function GetNameAndSymbols(): string
     {
         $str = $this->user_id == $_SESSION["user_id"] ? '<a class="" href="/edit.php?id=' . $this->id . '"><i class="far fa-edit"></i></a> ' : '';
         $str .= empty($this->manual_entry) ? $this->user->getFullName() : $this->manual_entry . ' <small>(von ' . $this->user->getFullName() . ')</small>';
@@ -50,7 +58,12 @@ class Attendance extends Entity
         return $str;
     }
 
-    public static function SQL($alias, $prefix)
+    /**
+     * @param $alias
+     * @param $prefix
+     * @return string
+     */
+    public static function SQL($alias, $prefix): string
     {
         return $alias . ".id AS " . $prefix . "_id," .
                 $alias . ".flight_day AS " . $prefix . "_flight_day," .

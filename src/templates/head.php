@@ -9,5 +9,5 @@
 
 <link rel="icon" type="image/png" href="/favicon.png" sizes="152x152">
 <link rel="apple-touch-icon" href="/favicon.png" sizes="152x152">
-<link type="text/css" rel="stylesheet" href="lib/bootstrap/bootstrap.min.css">
-<link type="text/css" rel="stylesheet" href="lib/fontawesome/css/all.min.css"/>
+<link type="text/css" rel="stylesheet" href="/lib/bootstrap/bootstrap.min.css">
+<link type="text/css" rel="stylesheet" href="/lib/fontawesome/css/all.min.css"/>

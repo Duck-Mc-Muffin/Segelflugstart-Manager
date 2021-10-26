@@ -66,9 +66,9 @@ if (!empty($_SESSION["error"]))
 	unset($_SESSION["error"]);
 }
 ?>
-<script type="text/javascript" src="lib/bootstrap/bootstrap.bundle.min.js"></script>
-<script type="text/javascript" src="lib/jquery-3.5.1.min.js"></script>
-<script type="text/javascript" src="js/main.min.js"></script>
-<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script type="text/javascript" src="/lib/bootstrap/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="https://apis.google.com/js/platform.js" async defer></script>
+<script type="text/javascript" src="/lib/alpine@3.4.2.min.js" defer></script>
+<script type="text/javascript" src="/js/main.min.js"></script>
 </body>
 </html>

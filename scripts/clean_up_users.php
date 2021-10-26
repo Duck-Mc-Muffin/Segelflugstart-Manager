@@ -1,4 +1,5 @@
-<? require_once $_SERVER["DOCUMENT_ROOT"] . '/src/general.php';
+<? require_once __DIR__ . '../src/general.php';
+global $db;
 
 // Login status
 if (!CheckLogin() || empty(GetSessionUser()->is_moderator))
