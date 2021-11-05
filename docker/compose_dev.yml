@@ -1,0 +1,35 @@
+version: '3'
+services:
+  segelflug_web:
+    image: segelflug_img
+    build:
+      context: ./..
+      dockerfile: ./docker/Dockerfile
+      args:
+        SEGELFLUG_APP_ENV: development
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - SEGELFLUG_DB_SYSTEM=mysql
+      - SEGELFLUG_DB_HOST=segelflug_db
+      - SEGELFLUG_DB_NAME=segelflug_db
+      - SEGELFLUG_DB_USER=root
+      - SEGELFLUG_DB_PASS=root
+    volumes:
+      - type: bind
+        source: /c/xampp/htdocs/segelflug_liste
+        target: /var/www/html
+  segelflug_db:
+    image: mariadb:10.6.4
+    ports:
+      - "3306:3306"
+    environment:
+      - MARIADB_ROOT_PASSWORD=root
+    volumes:
+      - type: volume
+        source: segelflug_data_vol
+        target: /var/lib/mysql
+volumes:
+  segelflug_data_vol:
+    driver: local

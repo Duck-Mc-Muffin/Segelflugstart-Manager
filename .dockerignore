@@ -1,0 +1,9 @@
+.dockerignore
+docker
+.vscode
+.idea
+.git
+vendor
+.gitignore
+LICENSE
+README.md

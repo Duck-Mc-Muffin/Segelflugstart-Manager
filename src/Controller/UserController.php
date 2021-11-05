@@ -103,7 +103,7 @@ function insert()
     $query->bindParam(':password_hash', $password_hash);
     $query->bindParam(':password_email', $password_email);
     $query->bindParam(':google_user_id', $google_user_id);
-    $query->bindValue(':is_approved', APPROVE_ACCOUNTS_BY_DEFAULT);
+    $query->bindValue(':is_approved', (int)APPROVE_ACCOUNTS_BY_DEFAULT);
     $query->execute();
 
     // Save user data in session

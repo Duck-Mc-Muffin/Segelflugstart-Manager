@@ -29,36 +29,38 @@ $flight_day->setTime(0, 0, 0, 0);
         <?= empty($att->id) && $today == $flight_day && !$is_manual ? 'x-model="distance_invalid"' : '' ?>
         value="<?= ($att->is_planned || ($today < $flight_day)) ?>"/>
     <div class="row g-3">
-        <label><?= empty($att->id) ? 'Was möchtest du fliegen?' : 'Flugzeugauswahl:' ?></label>
-        <div class="form-group col-md-7">
-            <div class="list-group">
-                <?
-                foreach($planes as $plane)
-                {
-                    ?>
-                    <label class="list-group-item d-flex justify-content-between align-items-center">
-                        <div>
-                            <input class="form-check-input me-1 plane_btn"
-                                    type="checkbox"
-                                    <? if (in_array($plane->id, $plane_selection)) echo 'checked' ?>
-                                    data-plane_id="<?= $plane->id ?>"
-                                    x-data="plane_selection_option(<?= $plane->id ?>)"
-                                    x-model="is_selected">
-                            <?= $plane->wkz . "; <strong>" . $plane->model . "</strong> (" . $plane->lfz . ")" ?>
-                        </div>
-                        <?
-                            if (!empty($list_by_plane[$plane->id]))
-                            {
-                                ?><span class="badge bg-primary rounded-pill"><?= count($list_by_plane[$plane->id]["attendance_list"]) ?></span><?
-                            }
-                        ?>
-                    </label>
+        <? if (!empty($planes)) { ?>
+            <label><?= empty($att->id) ? 'Was möchtest du fliegen?' : 'Flugzeugauswahl:' ?></label>
+            <div class="form-group col-md-7">
+                <div class="list-group">
                     <?
-                }
-                ?>
+                    foreach($planes as $plane)
+                    {
+                        ?>
+                        <label class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <input class="form-check-input me-1 plane_btn"
+                                        type="checkbox"
+                                        <? if (in_array($plane->id, $plane_selection)) echo 'checked' ?>
+                                        data-plane_id="<?= $plane->id ?>"
+                                        x-data="plane_selection_option(<?= $plane->id ?>)"
+                                        x-model="is_selected">
+                                <?= $plane->wkz . "; <strong>" . $plane->model . "</strong> (" . $plane->lfz . ")" ?>
+                            </div>
+                            <?
+                                if (!empty($list_by_plane[$plane->id]))
+                                {
+                                    ?><span class="badge bg-primary rounded-pill"><?= count($list_by_plane[$plane->id]["attendance_list"]) ?></span><?
+                                }
+                            ?>
+                        </label>
+                        <?
+                    }
+                    ?>
+                </div>
+                <small class="form-text text-muted">optional</small>
             </div>
-            <small class="form-text text-muted">optional</small>
-        </div>
+        <? } ?>
         <div class="col">
             <div class="row g-3">
                 <? if ($is_manual) { ?>

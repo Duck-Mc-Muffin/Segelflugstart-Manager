@@ -1,3 +1,6 @@
+CREATE DATABASE IF NOT EXISTS `segelflug_db`;
+USE `segelflug_db`;
+
 DROP TABLE IF EXISTS `mail_log`;
 DROP TABLE IF EXISTS `plane_selection`;
 DROP TABLE IF EXISTS `plane`;
