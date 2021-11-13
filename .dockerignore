@@ -1,9 +1,9 @@
 .dockerignore
-docker
 .vscode
 .idea
 .git
-vendor
 .gitignore
+docker
+vendor
 LICENSE
 README.md

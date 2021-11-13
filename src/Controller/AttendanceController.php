@@ -4,7 +4,6 @@ use Attendance;
 use DateTime;
 
 require_once __DIR__ . '/../general.php';
-printr($_REQUEST, 1);
 
 // Login status
 if (!CheckLogin())
