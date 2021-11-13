@@ -1,15 +1,5 @@
 version: '3.9'
 services:
-#  reverse-proxy:
-#    image: traefik:2.5
-#    container_name: traefik
-#    command: --api.insecure=true --providers.docker
-#    ports:
-#      - "80:80"
-#      - "443:443"
-#      - "8080:8080"
-#    volumes:
-#      - /var/run/docker.sock:/var/run/docker.sock:ro
   segelflug_web:
     image: segelflug_web_img
     build:
@@ -28,10 +18,6 @@ services:
       - SEGELFLUG_DB_PASS_FILE=/run/secrets/db_password
     secrets:
       - db_password
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.whoami.rule=Host(`segelflug_liste.local`)"
-      - "traefik.http.routers.whoami.tls=true"
     volumes:
       - type: bind
         source: /c/xampp/htdocs/segelflug_liste

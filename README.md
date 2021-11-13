@@ -30,7 +30,7 @@ const ATTENDANCE_ROLES =
 ````
 
 ## Anforderungen
-Die Anwendung wurde gestestet mit:
+Die Anwendung wurde getestet mit:
 * Apache v2.4.41
 * PHP v7.3
 * MYSQL v5.6
