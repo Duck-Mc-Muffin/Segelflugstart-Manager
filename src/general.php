@@ -43,19 +43,11 @@ spl_autoload_register(function($class_name)
 });
 
 // Database connection
-try
-{
-    $db = new PDO(DB_SYSTEM . ':host='. DB_HOST .';dbname=' . DB_NAME, DB_USER, DB_PASS,
-    [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"
-    ]);
-}
-catch (PDOException $ex)
-{
-    echo "<p>Fehler beim Verbinden mit der Datenbank.</p>";
-    exit;
-}
+$db = new PDO(DB_SYSTEM . ':host='. DB_HOST .';dbname=' . DB_NAME, DB_USER, DB_PASS,
+[
+    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+    PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"
+]);
 
 // ========================================================== Login ========================================================
 function SetSessionUser($user)

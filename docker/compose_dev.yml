@@ -1,7 +1,17 @@
-version: '3'
+version: '3.9'
 services:
+#  reverse-proxy:
+#    image: traefik:2.5
+#    container_name: traefik
+#    command: --api.insecure=true --providers.docker
+#    ports:
+#      - "80:80"
+#      - "443:443"
+#      - "8080:8080"
+#    volumes:
+#      - /var/run/docker.sock:/var/run/docker.sock:ro
   segelflug_web:
-    image: segelflug_img
+    image: segelflug_web_img
     build:
       context: ./..
       dockerfile: ./docker/Dockerfile
@@ -14,22 +24,43 @@ services:
       - SEGELFLUG_DB_SYSTEM=mysql
       - SEGELFLUG_DB_HOST=segelflug_db
       - SEGELFLUG_DB_NAME=segelflug_db
-      - SEGELFLUG_DB_USER=root
-      - SEGELFLUG_DB_PASS=root
+      - SEGELFLUG_DB_USER=segelflug_db_user
+      - SEGELFLUG_DB_PASS_FILE=/run/secrets/db_password
+    secrets:
+      - db_password
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.whoami.rule=Host(`segelflug_liste.local`)"
+      - "traefik.http.routers.whoami.tls=true"
     volumes:
       - type: bind
         source: /c/xampp/htdocs/segelflug_liste
         target: /var/www/html
+    depends_on:
+      - "segelflug_db"
   segelflug_db:
-    image: mariadb:10.6.4
+    image: segelflug_db_img
+    build:
+      context: database
     ports:
       - "3306:3306"
     environment:
-      - MARIADB_ROOT_PASSWORD=root
+      - MARIADB_DATABASE=segelflug_db
+      - MARIADB_USER=segelflug_db_user
+      - MARIADB_PASSWORD_FILE=/run/secrets/db_password
+      - MARIADB_ROOT_PASSWORD_FILE=/run/secrets/db_admin_password
+    secrets:
+      - db_password
+      - db_admin_password
     volumes:
       - type: volume
         source: segelflug_data_vol
         target: /var/lib/mysql
+secrets:
+  db_password:
+    file: password_db_user.txt
+  db_admin_password:
+    file: password_db_admin.txt
 volumes:
   segelflug_data_vol:
     driver: local

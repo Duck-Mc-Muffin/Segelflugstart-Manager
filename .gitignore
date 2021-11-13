@@ -1,5 +1,7 @@
 /.vscode
 /.idea
+/docker/password_*
+/docker/database/local_*
 /src/conf.php
 /src/conf*.php
 /vendor

@@ -1,10 +1,20 @@
 <?
-// Database
-const DB_SYSTEM = 'mysql';
-const DB_HOST = 'database_host_address';
-const DB_NAME = 'database_name';
-const DB_USER = 'database_user';
-const DB_PASS = 'database_password';
+// Database connection
+define('DB_SYSTEM', getenv('SEGELFLUG_DB_SYSTEM'));
+define('DB_HOST', getenv('SEGELFLUG_DB_HOST'));
+define('DB_NAME', getenv('SEGELFLUG_DB_NAME'));
+define('DB_USER', getenv('SEGELFLUG_DB_USER'));
+
+// Database password
+$pass_file = getenv('SEGELFLUG_DB_PASS_FILE');
+$pass = getenv('SEGELFLUG_DB_PASS');
+if ($pass_file !== false)
+{
+    $pass = file_get_contents($pass_file);
+    if ($pass === false) $pass = "";
+}
+define('DB_PASS', trim($pass));
+unset($pass);
 
 // General
 setlocale(LC_TIME, 'de_DE', 'german');
@@ -28,9 +38,9 @@ const GOOGLE_CLIENT_ID = '';
 // E-Mail
 const EMAIL_HOST = 'smpt.example.server';
 const EMAIL_PORT = 465;
-const EMAIL_SMTP_SECURE = 'ssl'; // Options: ssl|tls
+const EMAIL_SMTP_SECURE = 'ssl';                    // Options: ssl|tls
 const EMAIL_USERNAME = 'support@example.com';
-const EMAIL_PASS = 'SMTP Password';
+const EMAIL_PASS = '';                              // SMTP password
 const EMAIL_FROM_MAIL = 'support@example.com';
 const EMAIL_FROM_NAME = 'Segelflugstart-Manager';
 const EMAIL_REPLY_MAIL = 'support@example.com';
