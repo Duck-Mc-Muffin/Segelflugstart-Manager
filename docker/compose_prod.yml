@@ -22,7 +22,6 @@ services:
     image: segelflug_db_img
     build:
       context: database
-      dockerfile: ""
     ports:
       - "3306:3306"
     environment:

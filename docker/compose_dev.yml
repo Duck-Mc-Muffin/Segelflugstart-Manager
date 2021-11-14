@@ -20,7 +20,7 @@ services:
       - db_password
     volumes:
       - type: bind
-        source: /c/xampp/htdocs/segelflug_liste
+        source: ./..
         target: /var/www/html
     depends_on:
       - "segelflug_db"
