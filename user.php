@@ -104,10 +104,12 @@ $_SESSION["user_data_form_csrf"] = bin2hex(random_bytes(32));
 					<input type="hidden" name="google_user_id_token" value="">
 					<div class="form-group col-12">
 						<p>Hier kannst du deinen Google-Account verknüpfen:</p>
-						<div class="g-signin2 d-inline-block" data-onsuccess="LogInViaGoogle"></div>
-						<button type="submit" class="form-control text-white btn btn-info google_signed_in d-none">
-							Google-Account verknüpfen
-						</button>
+                        <div class="text-center">
+                            <div class="g-signin2 d-inline-block" data-onsuccess="LogInViaGoogle"></div>
+                            <button type="submit" class="form-control text-white btn btn-info google_signed_in d-none">
+                                Google-Account verknüpfen
+                            </button>
+                        </div>
 					</div>
 				</form>
 			</article>

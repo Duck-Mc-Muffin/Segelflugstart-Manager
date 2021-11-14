@@ -15,7 +15,8 @@ if (CheckLogin())
 </head>
 <body class="d-flex flex-column h-100">
 	<header class="container-md my-md-5 my-3 text-center">
-		<h1>Willkommen zum inoffiziellen Haxterberg Segelflugstart-Manager!</h1>
+		<h1>Willkommen zum Segelflugstart-Manager!</h1>
+        <small><?= WEB_APP_TITLE ?></small>
 	</header>
 	<section>
 		<article class="container-sm" style="max-width: 800px">
@@ -24,7 +25,6 @@ if (CheckLogin())
 				Viel wichtiger ... wer darf als Erstes? Eine Liste muss her!
 			</p>
 			<p>
-				Eine Papierliste vielleicht? Pff ... ok Boomer.
 				Wie es sich für's 21. Jahrhundert gehört, kann sich hier jetzt jeder selbst in eine digitale Liste eintragen.
 			</p>
 			<p>
@@ -100,12 +100,19 @@ if (CheckLogin())
                     </label>
                     <a href="/impressum_und_datenschutz.php">Datenschutzbestimmungen</a>
 				</div>
-				<div class="form-group col-12">
-					<label class="form-check-label">
-						<input type="checkbox" name="set_remember_me" class="form-check-input">
-						Angemeldet bleiben
-					</label>
-				</div>
+                <?
+                if (!empty(APPROVE_ACCOUNTS_BY_DEFAULT))
+                {
+                    ?>
+                    <div class="form-group col-12">
+                        <label class="form-check-label">
+                            <input type="checkbox" name="set_remember_me" class="form-check-input">
+                            Angemeldet bleiben
+                        </label>
+                    </div>
+                    <?
+                }
+                ?>
 				<div class="form-group col-12 text-center">
 					<button type="submit" class="form-control btn btn-primary">Registrieren</button>
 				</div>

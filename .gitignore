@@ -4,9 +4,9 @@
 /docker/database/local_*
 /src/conf.php
 /src/conf*.php
+/src/templates/legal.php
 /vendor
 /css/*.min.css
 /css/*.min.css.map
 /js/*.min.js
 /js/*.min.js.map
-/impressum_und_datenschutz.php

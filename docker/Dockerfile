@@ -24,3 +24,6 @@ RUN mv "$PHP_INI_DIR/php.ini-$SEGELFLUG_APP_ENV" "$PHP_INI_DIR/php.ini" && \
     mv vendor/google/apiclient-services/autoload.php vendor/google/autoload.php && \
     rm -r vendor/google/apiclient-services/* && \
     mv vendor/google/autoload.php vendor/google/apiclient-services/autoload.php
+
+# Clean up unnecessary files if this build is a production environment
+RUN [ "$SEGELFLUG_APP_ENV" = "production" ] && ./clean_up.sh || echo "clean_up.sh will not be executed"

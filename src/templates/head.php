@@ -1,5 +1,5 @@
 <meta charset="utf-8"/>
-<meta name="description" content="Der inoffizielle Haxterberg-Segelflugstart Manager.">
+<meta name="description" content="Der digitale Segelflugstart Manager.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <meta name="google-signin-client_id" content="<? echo GOOGLE_CLIENT_ID ?>">

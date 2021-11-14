@@ -17,6 +17,7 @@ define('DB_PASS', trim($pass));
 unset($pass);
 
 // General
+const WEB_APP_TITLE = 'Segelflugstart-Manager'; // Visible on Welcome- and Login page
 setlocale(LC_TIME, 'de_DE', 'german');
 const INDEX_LANDING_PAGE = '/login.php';
 const FORCE_HTTPS = true;

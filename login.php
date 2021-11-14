@@ -52,12 +52,12 @@ if (!empty($_POST["password_email"]))
 	<? require_once __DIR__ . '/src/templates/head.php'; ?>
 </head>
 <body class="d-flex flex-column h-100">
-	<header class="container-sm my-3 text-center mb-5">
-		<h1>Haxterberg-Segelflugstart</h1>
-		<h2>Login</h2>
+	<header class="container-sm my-3 text-center">
+		<h1><?= WEB_APP_TITLE ?></h1>
 	</header>
 	<section>
 		<article class="container-sm" style="max-width: 500px">
+            <h2 class="text-center">Login</h2>
 			<?
 			if (!empty($_REQUEST["wrong_credentials"]))
 			{
