@@ -20,10 +20,7 @@ ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/do
 RUN mv "$PHP_INI_DIR/php.ini-$SEGELFLUG_APP_ENV" "$PHP_INI_DIR/php.ini" && \
     chmod +x /usr/local/bin/install-php-extensions && \
     install-php-extensions @composer intl pdo_mysql && \
-    composer install && \
-    mv vendor/google/apiclient-services/autoload.php vendor/google/autoload.php && \
-    rm -r vendor/google/apiclient-services/* && \
-    mv vendor/google/autoload.php vendor/google/apiclient-services/autoload.php
+    composer install
 
 # Clean up unnecessary files if this build is a production environment
 RUN [ "$SEGELFLUG_APP_ENV" = "production" ] && ./clean_up.sh || echo "clean_up.sh will not be executed"

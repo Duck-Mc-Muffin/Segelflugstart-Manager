@@ -130,20 +130,13 @@ Die Anwendung wurde getestet mit:
 ### Composer
 Die Anmeldung via Google-API sowie das Versenden von "Passwort vergessen"-Mails basieren
 auf _composer_ Paketen die installiert werden müssen.
-Anleitung zur Installation von _composer_ sind unter [getcomposer.org](https://getcomposer.org/) zu finden.
-Alle Pakete können dann mit dem Befehl
-````
-composer install
-````
-installiert werden.
-
-Das "google/apiclient" Paket besteht aus vielen Google-Services die nicht verwendet werden.
-Der (sehr große) Ordner `/vendor/google/apiclient-services` kann nach der Installation also gelöscht werden.
+Anleitung zur Installation ist unter [getcomposer.org](https://getcomposer.org/) zu finden.
+Alle Pakete können dann im Projektverzeichnis mit dem Befehl `composer install` installiert werden.
 
 ### Datenbank
 Mit `/docker/database/create_tables.sql` werden die Datenbanktabellen angelegt.
 Die vom Nutzer wählbaren Luftfahrzeuge müssen dann noch in der Tabelle `plane` eingetragen werden
-(siehe "Luftfahrzeuge hinzufügen" weiter unten).
+(siehe "Luftfahrzeuge hinzufügen" weiter oben).
 
 Das Skript sollte **nicht** mit auf den Produktivserver hochgeladen werden!
 
