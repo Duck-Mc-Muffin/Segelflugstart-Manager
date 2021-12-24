@@ -9,10 +9,11 @@ document.addEventListener('alpine:init', () =>
         init()
         {
             this.$watch('is_selected', (val) =>
-                {
-                    if (val) this.plane_selection.push(this.plane_id);
-                    else this.plane_selection.splice(this.plane_selection.indexOf(this.plane_id), 1);
-                });
+            {
+                if (val) this.plane_selection.push(this.plane_id);
+                else this.plane_selection.splice(this.plane_selection.indexOf(this.plane_id), 1);
+            });
+            if (this.$el.checked) this.is_selected = true;
         }
     }));
 

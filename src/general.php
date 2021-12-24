@@ -1,12 +1,17 @@
 <?
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception as PHPMailer_Exception;
+use Twig\Environment;
+use Twig\Extension\DebugExtension;
+use Twig\Loader\FilesystemLoader;
 
 // Config file
 require_once 'conf.php';
 
 // Session
 session_start();
+$flash_error = $_SESSION["error"] ?? null;
+unset($_SESSION["error"]);
 if (isset($_REQUEST["logout"]))
 {
     session_destroy();
@@ -48,6 +53,14 @@ $db = new PDO(DB_SYSTEM . ':host='. DB_HOST .';dbname=' . DB_NAME, DB_USER, DB_P
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
     PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"
 ]);
+
+// Templating Engine (Twig)
+$twig_loader = new FilesystemLoader( __DIR__ . '/templates');
+$twig = new Environment($twig_loader, [ 'debug' => true ]); // TODO
+$twig->addExtension(new DebugExtension());
+foreach (get_defined_constants(true)['user'] as $key => $val) $twig->addGlobal($key, $val);
+$twig->addGlobal('user', GetSessionUser());
+$twig->addGlobal('flash_error', str_replace("\n", '<br/>', $flash_error));
 
 // ========================================================== Login ========================================================
 function SetSessionUser($user)
@@ -242,11 +255,35 @@ function RenderFlightDayBtn($str, $flight_day = null)
 }
 function RenderAttendanceForm($planes, $flight_day, $att = null, $plane_selection = [], $is_manual = false)
 {
-    include 'templates/attendance_form.php';
+    global $twig;
+
+    if (empty($att))
+    {
+        // Standard values
+        $att = new Attendance([]);
+        $att->user_id = $_SESSION["user_id"];
+        $att->is_planned = false;
+    }
+    if (!empty($_REQUEST['time'])) $att->time = new DateTime($_REQUEST['time']);
+    $today = new DateTime();
+    $today->setTime(0, 0, 0, 0);
+    $flight_day->setTime(0, 0, 0, 0);
+
+    $twig->display('attendance_form.twig',
+        [
+            'planes'            => $planes,
+            'today'             => $today,
+            'flight_day'        => $flight_day,
+            'att'               => $att,
+            'plane_selection'   => $plane_selection,
+            'is_manual'         => $is_manual
+        ]);
+
 }
 function RenderAttendanceTable($caption, $list, $plane_selection = [])
 {
-    include 'templates/attendance_table.php';
+    global $twig;
+    $twig->display('attendance_table.twig', [ 'caption' => $caption, 'list' => $list, 'plane_selection' => $plane_selection ]);
 }
 
 /**
@@ -262,6 +299,7 @@ function RenderAttendanceTable($caption, $list, $plane_selection = [])
  */
 function SendMail($user_id, $to_mail, $to_name, $subject, $template_file, $data, $debug_level = 0): ?bool
 {
+    global $twig;
     $err = null;
     try
     {
@@ -284,10 +322,8 @@ function SendMail($user_id, $to_mail, $to_name, $subject, $template_file, $data,
         $mail->CharSet = 'UTF-8';
         $mail->isHTML(true);
 
-        ob_start();
-        require 'templates/' . $template_file;
-        $msg_html = ob_get_clean();
-        $mail->msgHTML($msg_html, $_SERVER["DOCUMENT_ROOT"]);
+        // TODO: test e-mail feature
+        $mail->msgHTML($twig->render($template_file, [ 'name' => $to_name, 'data' => $data ]), $_SERVER["DOCUMENT_ROOT"]);
 
         if (!$mail->send()) $err = $mail->ErrorInfo;
     }

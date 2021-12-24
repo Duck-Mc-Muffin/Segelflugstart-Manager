@@ -1,5 +1,5 @@
 <? require_once __DIR__ . '/src/general.php';
-global $date_formatter_calendar;
+global $date_formatter_calendar, $twig;
 
 // Login status
 if (!CheckLogin())
@@ -18,7 +18,7 @@ $flight_day_info = GetFlightDayInfo(new DateTime());
 <html lang="de" class="h-100">
 <head>
 	<title>Kalender</title>
-	<? require_once __DIR__ . '/src/templates/head.php'; ?>
+	<? $twig->display('head.twig'); ?>
 </head>
 <body class="d-flex flex-column h-100">
 	<header class="container-lg my-3 text-center">
@@ -65,4 +65,4 @@ $flight_day_info = GetFlightDayInfo(new DateTime());
 	<div class="text-center py-3">
 		<a class="btn btn-outline-secondary btn-sm" href="/index.php"><i class="fas fa-arrow-left"></i> zurück</a>
 	</div>
-<? include __DIR__ . '/src/templates/footer.php';
+<? $twig->display('footer.twig');

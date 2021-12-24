@@ -1,4 +1,5 @@
 <? require_once __DIR__ . '/src/general.php';
+global $twig;
 
 // Login status
 if (!CheckLogin())
@@ -19,7 +20,7 @@ $_SESSION["user_data_form_csrf"] = bin2hex(random_bytes(32));
 <html lang="de" class="h-100">
 <head>
 	<title>Account</title>
-	<? require __DIR__ . '/src/templates/head.php'; ?>
+	<? $twig->display('head.twig'); ?>
 </head>
 <body class="d-flex flex-column h-100">
 	<header class="container-sm my-3 text-center mb-5">
@@ -142,4 +143,4 @@ $_SESSION["user_data_form_csrf"] = bin2hex(random_bytes(32));
 		RenderFlightDayBtn('zum heutigen Flugtag');
 		?>
 	</section>
-<? include __DIR__ . '/src/templates/footer.php';
+<? $twig->display('footer.twig');

@@ -1,0 +1,45 @@
+<article class="container-fluid px-1 table-responsive">
+    <table class="table table-sm caption-top attendance_table" x-data="manual_user_drag_and_drop">
+        <caption class="text-center">{{ caption }}</caption>
+        <thead class="border-bottom">
+            <tr @dragover.prevent @drop="apply('00:00:00')">
+                <th scope="col">Zeit</th>
+                <th scope="col">Name</th>
+                {% if plane_selection %}
+                    <th scope="col">Flugzeuge</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% if list %}
+                {% for att in list %}
+                    {% set is_user = att.user_id == user.id %}
+                    {% set is_manual = att.manual_entry %}
+                    <tr data-id="{{ att.id }}"
+                        data-time="{{ att.time|date('H:i:s') }}"
+                        class="{% if att.manual_entry %}manual_entry{% endif %} role_{{ att.role }} {% if is_user and not is_manual %}table-primary{% endif %}"
+                        {% if is_user and is_manual %}draggable="true" @dragstart="setData()"{% endif %}
+                        @dragover.prevent @drop="apply(calc($el.dataset.time))">
+                        <td>
+                            {% if att.time and not att.manual_entry %}
+                                {{ att.time|date("H:i") }}
+                            {% endif %}
+                        </td>
+                        <td>{{ att.GetNameAndSymbols|raw }}</td>
+                        {% if plane_selection %}
+                            <td>
+                                {% for plane in plane_selection[att.id] %}
+                                    <span class="badge bg-primary rounded-pill">{{ plane.alias }}</span>
+                                {% endfor %}
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="3" class="text-center"><em>keine Einträge</em></td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</article>

@@ -1,4 +1,5 @@
 <? require_once __DIR__ . '/src/general.php';
+global $twig;
 
 // Login status
 if (CheckLogin())
@@ -11,7 +12,7 @@ if (CheckLogin())
 <html lang="de" class="h-100">
 <head>
 	<title>Willkommen | Segelflugstart-Manager</title>
-	<? require_once __DIR__ . '/src/templates/head.php'; ?>
+	<? $twig->display('head.twig'); ?>
 </head>
 <body class="d-flex flex-column h-100">
 	<header class="container-md my-md-5 my-3 text-center">
@@ -169,4 +170,4 @@ if (CheckLogin())
 			<a class="btn btn-outline-secondary" href="/login.php">Zum Login hier!</a>
 		</article>
 	</section>
-<? include __DIR__ . '/src/templates/footer.php';
+<? $twig->display('footer.twig');

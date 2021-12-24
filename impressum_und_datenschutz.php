@@ -1,9 +1,11 @@
-<? require_once __DIR__ . '/src/general.php'; ?>
+<? require_once __DIR__ . '/src/general.php';
+global $twig;
+?>
 <!DOCTYPE html>
 <html lang="de" class="h-100">
 <head>
 	<title>Datenschutzerklärung | Segelflugstart-Manager</title>
-	<? require_once __DIR__ . '/src/templates/head.php'; ?>
+	<? $twig->display('head.twig'); ?>
 </head>
 <body class="d-flex flex-column h-100">
 <header class="container-md my-3">
@@ -24,4 +26,4 @@ else
     <?
 }
 
-include __DIR__ . '/src/templates/footer.php';
+$twig->display('footer.twig');

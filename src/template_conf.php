@@ -21,8 +21,8 @@ const WEB_APP_TITLE = 'Segelflugstart-Manager'; // Visible on Welcome- and Login
 setlocale(LC_TIME, 'de_DE', 'german');
 const INDEX_LANDING_PAGE = '/login.php';
 const FORCE_HTTPS = true;
-const RESTRICT_MANUAL_ENTRY_ZONE = true; // Mode "false" not tested!
-const RESTRICT_MANUAL_ENTRY_PLANNED = true; // Mode "false" not tested!
+const RESTRICT_MANUAL_ENTRY_ZONE = true; // TODO: Mode "false" not tested!
+const RESTRICT_MANUAL_ENTRY_PLANNED = true; // TODO: Mode "false" not tested!
 const CALENDAR_DAY_SPAN = 14;
 
 // Login

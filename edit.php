@@ -1,5 +1,5 @@
 <? require_once __DIR__ . '/src/general.php';
-global $date_formatter_title;
+global $date_formatter_title, $twig;
 
 // Login status
 if (!CheckLogin())
@@ -28,7 +28,7 @@ $planes = GetPlanes();
 <html lang="de" class="h-100">
 <head>
 	<title>Eintrag bearbeiten</title>
-	<? require_once __DIR__ . '/src/templates/head.php'; ?>
+	<? $twig->display('head.twig'); ?>
 </head>
 <body class="d-flex flex-column h-100">
 	<header class="container my-3 text-center">
@@ -64,4 +64,4 @@ $planes = GetPlanes();
 			?>
         </article>
     </section>
-<? include __DIR__ . '/src/templates/footer.php';
+<? $twig->display('footer.twig');

@@ -1,5 +1,5 @@
 <? require_once __DIR__ . '/src/general.php';
-global $date_formatter_title;
+global $date_formatter_title, $twig;
 
 // Login status
 if (!CheckLogin())
@@ -47,7 +47,7 @@ $selected_planes = GetPlanesFromFlightDay($flight_day);
 <html lang="de" class="h-100">
 <head>
 	<title>Segelflugstart-Manager</title>
-	<? require_once __DIR__ . '/src/templates/head.php'; ?>
+	<? $twig->display('head.twig'); ?>
 	<link type="text/css" rel="stylesheet" href="css/main.min.css"/>
 </head>
 <body class="d-flex flex-column h-100">
@@ -173,4 +173,4 @@ $selected_planes = GetPlanesFromFlightDay($flight_day);
 		}
 		?>
 	</section>
-<? include __DIR__ . '/src/templates/footer.php';
+<? $twig->display('footer.twig');

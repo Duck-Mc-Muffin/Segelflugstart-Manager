@@ -1,4 +1,5 @@
 <? require_once __DIR__ . '/src/general.php';
+global $twig;
 
 // Login status
 if (CheckLogin())
@@ -49,7 +50,7 @@ if (!empty($_POST["password_email"]))
 <html lang="de" class="h-100">
 <head>
 	<title>Segelflugstart-Manager | Login</title>
-	<? require_once __DIR__ . '/src/templates/head.php'; ?>
+	<? $twig->display('head.twig'); ?>
 </head>
 <body class="d-flex flex-column h-100">
 	<header class="container-sm my-3 text-center">
@@ -175,4 +176,4 @@ if (!empty($_POST["password_email"]))
 			<a class="btn btn-outline-secondary" href="/welcome.php">Zum Registrieren hier!</a>
 		</article>
 	</section>
-<? include __DIR__ . '/src/templates/footer.php';
+<? $twig->display('footer.twig');
